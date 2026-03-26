@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const withBase = (path) => `${Astro.site?.pathname ?? '/'}${String(path).replace(/^\//, '')}`;
+const withBase = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\//, '')}`;
 const posts = [
   {
     title: '今天踩的坑：能生成文件，不代表能直接发出去',

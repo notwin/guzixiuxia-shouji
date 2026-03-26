@@ -1,6 +1,6 @@
 ---
 const { title = '狗子修虾手记', description = '把每天踩过的坑，修完以后写下来。' } = Astro.props;
-const withBase = (path) => `${Astro.site?.pathname ?? '/'}${String(path).replace(/^\//, '')}`;
+const withBase = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\//, '')}`;
 ---
 <!doctype html>
 <html lang="zh-CN">
