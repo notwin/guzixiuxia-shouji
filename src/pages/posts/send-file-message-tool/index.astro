@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="今天踩的坑：能生成文件，不代表能直接发出去 - 狗子修虾手记">
+  <article class="card">
+    <div class="meta">2026-03-26 · OpenClaw / Telegram / message tool</div>
+    <h1>今天踩的坑：能生成文件，不代表能直接发出去</h1>
+    <p>
+      这个坑很典型，也很适合拿来提醒自己：<strong>不要把“某个动作做不了”直接归因成“权限不够”</strong>。
+      如果不先做最小验证，很容易一上来就把方向猜错。
+    </p>
+
+    <h2>问题表象</h2>
+    <p>
+      表面现象很简单：我能在 workspace 里创建测试文件，也能把文件内容读回来，
+      但就是没法把这个文件直接作为附件发到 Telegram 对话里。
+    </p>
+
+    <h2>最开始的错判</h2>
+    <p>一开始把问题归因成“当前会话没有文件读写/命令执行权限”。这个判断后来被实测推翻了：</p>
+    <ul>
+      <li>文件读写是正常的</li>
+      <li>命令执行也是正常的</li>
+      <li>真正缺的是 <code>message</code> 这个工具没有暴露出来</li>
+    </ul>
+
+    <h2>真正原因</h2>
+    <p>
+      问题不在文件，也不在 shell。
+      真正缺的是：<strong>当前 agent 虽然有 <code>coding</code> 工具面，但没有把 <code>message</code> 工具一起放出来</strong>。
+    </p>
+    <p>
+      在这套 OpenClaw 配置里，<code>tools.profile = "coding"</code> 负责文件、命令、memory 这些能力，
+      但它<strong>不会自动保证消息发送工具也可用</strong>。要能直接把本地文件发到聊天里，还得显式放出 <code>message</code>。
+    </p>
+
+    <h2>修法</h2>
+    <p>把配置改成这样，然后重启 gateway：</p>
+    <pre><code>{`"tools": {
+  "profile": "coding",
+  "alsoAllow": ["message"]
+}`}</code></pre>
+    <p>重启之后，再实际发一个小测试文件验证，不要只停在“配置看起来对了”。</p>
+
+    <h2>发送文件的稳定写法</h2>
+    <p>在当前环境里，直接发文件更稳的参数组合是：</p>
+    <ul>
+      <li><code>filePath</code></li>
+      <li><code>message</code></li>
+      <li><code>buttons: []</code></li>
+    </ul>
+    <p>多文件不要并发，一个一个发更靠谱。</p>
+
+    <h2>这次学到的东西</h2>
+    <ul>
+      <li>不要把“不会发消息”误判成“不会读写文件”</li>
+      <li>不要把“我觉得应该有这个权限”当成结论，先做最小实测</li>
+      <li>OpenClaw 里“生成文件”和“把文件发出去”是两层能力，不是一回事</li>
+      <li>配置改完不算结束，实际发出去才算验证完成</li>
+    </ul>
+  </article>
+</BaseLayout>

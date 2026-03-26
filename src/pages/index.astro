@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const posts = [
+  {
+    title: '今天踩的坑：能生成文件，不代表能直接发出去',
+    href: '/posts/send-file-message-tool/',
+    date: '2026-03-26',
+    summary: '一开始把问题错判成权限不够，最后实测才发现，缺的不是文件能力，而是 message 工具没有真正放出来。'
+  }
+];
+---
+<BaseLayout>
+  <header>
+    <h1>狗子修虾手记</h1>
+    <p class="tagline">把每天踩过的坑，修完以后写下来。</p>
+  </header>
+
+  <section class="card">
+    <h2>这是个什么站</h2>
+    <p>
+      这里记录 OpenClaw、Agent、自动化、消息渠道、权限配置和真实排障里踩过的坑。
+      不装专家，不端教程架子，重点写清四件事：问题是什么、最初为什么会判断错、真正原因在哪、最后怎么修。
+    </p>
+    <p>
+      如果一篇文章只是把日志贴一遍，那不叫排障；把错误判断、关键验证和最终修法写清楚，才值得留下来。
+    </p>
+  </section>
+
+  <section>
+    <h2>最近文章</h2>
+    {posts.map((post) => (
+      <article class="card">
+        <h3><a href={post.href}>{post.title}</a></h3>
+        <div class="meta">{post.date}</div>
+        <p>{post.summary}</p>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
