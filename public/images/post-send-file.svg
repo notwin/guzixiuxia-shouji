@@ -27,7 +27,4 @@
   <path d="M1350 458L1472 412" stroke="#FF9A6B" stroke-width="22" stroke-linecap="round"/>
   <path d="M1344 504L1465 522" stroke="#FF9A6B" stroke-width="22" stroke-linecap="round"/>
   <path d="M472 404C600 314 676 312 742 364" stroke="#B85C38" stroke-width="17" stroke-linecap="round" stroke-dasharray="8 18"/>
-  <text x="120" y="126" fill="#A45A3D" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" letter-spacing="5">OPENCLAW / TELEGRAM / MESSAGE TOOL</text>
-  <text x="118" y="760" fill="#1F1B16" font-size="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-weight="700">问题不在文件，在嘴</text>
-  <text x="118" y="822" fill="#5C5146" font-size="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">一次 OpenClaw 发文件排障：能生成，不代表能发出去。</text>
 </svg>

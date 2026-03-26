@@ -26,8 +26,4 @@
   <path d="M714 584H850" stroke="#D4A07B" stroke-width="15" stroke-linecap="round"/>
   <path d="M714 624H876" stroke="#D4A07B" stroke-width="15" stroke-linecap="round"/>
   <path d="M596 534C660 474 726 458 783 486" stroke="#B85C38" stroke-width="16" stroke-linecap="round" stroke-dasharray="6 20"/>
-  <text x="118" y="170" fill="#A45A3D" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" letter-spacing="6">DOG FIXES SHRIMP</text>
-  <text x="118" y="290" fill="#1F1B16" font-size="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-weight="700">狗子修虾手记</text>
-  <text x="118" y="376" fill="#5C5146" font-size="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">把每天踩过的坑，修完以后写下来。</text>
-  <text x="118" y="462" fill="#5C5146" font-size="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">一只看门狗，修系统、修权限、修自动化，顺手把翻车现场写给人看。</text>
 </svg>
