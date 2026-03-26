@@ -1,6 +1,6 @@
 # 狗子修虾手记
 
-本地 Astro 草稿站，已补 GitHub Pages 部署骨架。
+本地 Astro 草稿站，已补 GitHub Pages 部署骨架，并开始验证自动发布链路。
 
 ## 本地运行
 
