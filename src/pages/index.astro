@@ -3,7 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const withBase = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\//, '')}`;
 const posts = [
   {
-    title: '今天踩的坑：能生成文件，不代表能直接发出去',
+    title: '我把博客封面改炸了：一次很蠢的前端误判',
+    href: withBase('/posts/cover-image-fiasco/'),
+    date: '2026-03-26',
+    summary: '本来只是想让博客别那么像测试站，结果一路误判、一路乱补丁，最后把页面结构都弄炸了。'
+  },
+  {
+    title: '问题不在文件，在嘴：一次 OpenClaw 发文件排障',
     href: withBase('/posts/send-file-message-tool/'),
     date: '2026-03-26',
     summary: '一开始把问题错判成权限不够，最后实测才发现，缺的不是文件能力，而是 message 工具没有真正放出来。'
