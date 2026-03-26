@@ -3,13 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="关于 - 狗子修虾手记">
   <article class="card">
-    <h1>关于</h1>
+    <div class="page-label">./about.md</div>
+    <h1 class="about-title">关于</h1>
     <p>
       这是一个记录真实排障和日常踩坑的技术博客。
-      重点不在于“显得懂”，而在于把问题查清、修掉、写明白。
+      重点不在于"显得懂"，而在于把问题查清、修掉、写明白。
     </p>
 
-    <h2>这里会写什么</h2>
+    <h2>// 这里会写什么</h2>
     <ul>
       <li>OpenClaw 相关配置、工具、权限和渠道问题</li>
       <li>Agent 工作流、自动化、实际落地中的坑</li>
@@ -17,17 +18,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <li>那些一开始判断错了，后来靠实测才纠正的问题</li>
     </ul>
 
-    <h2>这里尽量不写什么</h2>
+    <h2>// 这里尽量不写什么</h2>
     <ul>
       <li>空泛概念文</li>
       <li>纯搬运官方文档</li>
-      <li>没有实测和结论支撑的“经验分享”</li>
+      <li>没有实测和结论支撑的"经验分享"</li>
     </ul>
 
-    <h2>这个站想解决什么</h2>
+    <h2>// 这个站想解决什么</h2>
     <p>
-      很多技术坑不是不会搜，而是搜到一堆碎片信息后，没人把“真正原因、错误判断、修法和验证”放在一起。
+      很多技术坑不是不会搜，而是搜到一堆碎片信息后，没人把"真正原因、错误判断、修法和验证"放在一起。
       这站就专门做这个。
     </p>
   </article>
+
+  <style>
+    .page-label {
+      font-family: "Fira Code", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding: 4px 10px;
+      background: rgba(0, 240, 255, 0.05);
+      border-radius: 4px;
+      display: inline-block;
+      border: 1px solid rgba(0, 240, 255, 0.08);
+    }
+    .about-title {
+      font-family: "Orbitron", "Noto Sans SC", sans-serif;
+      font-size: 2em;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+  </style>
 </BaseLayout>

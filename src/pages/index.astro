@@ -6,24 +6,34 @@ const posts = [
     title: '我把博客封面改炸了：一次很蠢的前端误判',
     href: withBase('/posts/cover-image-fiasco/'),
     date: '2026-03-26',
-    summary: '本来只是想让博客别那么像测试站，结果一路误判、一路乱补丁，最后把页面结构都弄炸了。'
+    summary: '本来只是想让博客别那么像测试站，结果一路误判、一路乱补丁，最后把页面结构都弄炸了。',
+    tags: ['Frontend', 'CSS', 'SVG']
   },
   {
     title: '问题不在文件，在嘴：一次 OpenClaw 发文件排障',
     href: withBase('/posts/send-file-message-tool/'),
     date: '2026-03-26',
-    summary: '一开始把问题错判成权限不够，最后实测才发现，缺的不是文件能力，而是 message 工具没有真正放出来。'
+    summary: '一开始把问题错判成权限不够，最后实测才发现，缺的不是文件能力，而是 message 工具没有真正放出来。',
+    tags: ['OpenClaw', 'Telegram', 'Debug']
   }
 ];
 ---
 <BaseLayout>
-  <header>
-    <h1>狗子修虾手记</h1>
+  <header class="hero">
+    <div class="hero-badge">SYS.ONLINE</div>
+    <h1 class="hero-title">
+      <span class="glitch" data-text="狗子修虾手记">狗子修虾手记</span>
+    </h1>
     <p class="tagline">把每天踩过的坑，修完以后写下来。</p>
+    <div class="hero-stats">
+      <span class="stat"><span class="stat-num">{posts.length}</span> 篇文章</span>
+      <span class="stat-divider">|</span>
+      <span class="stat">状态: <span class="stat-online">运行中</span></span>
+    </div>
   </header>
 
   <section class="card">
-    <h2>这是个什么站</h2>
+    <h2>// 这是个什么站</h2>
     <p>
       这里不是教程站，也不是参数大全。
     </p>
@@ -38,7 +48,7 @@ const posts = [
   </section>
 
   <section class="card">
-    <h2>这只狗平时主要修这些</h2>
+    <h2>// 这只狗平时主要修这些</h2>
     <ul>
       <li>工具突然抽风的时候</li>
       <li>权限莫名其妙拧巴的时候</li>
@@ -47,14 +57,245 @@ const posts = [
     </ul>
   </section>
 
-  <section>
-    <h2>最近文章</h2>
-    {posts.map((post) => (
-      <article class="card">
-        <h3><a href={post.href}>{post.title}</a></h3>
-        <div class="meta">{post.date}</div>
-        <p>{post.summary}</p>
-      </article>
+  <section class="posts-section">
+    <h2 class="section-title">// 最近文章</h2>
+    {posts.map((post, i) => (
+      <a href={post.href} class="post-card">
+        <div class="post-index">0{i + 1}</div>
+        <div class="post-content">
+          <h3 class="post-title">{post.title}</h3>
+          <div class="post-meta">
+            <span class="post-date">{post.date}</span>
+            <span class="post-tags">
+              {post.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </span>
+          </div>
+          <p class="post-summary">{post.summary}</p>
+        </div>
+        <div class="post-arrow">→</div>
+      </a>
     ))}
   </section>
+
+  <style>
+    /* Hero 区域 */
+    .hero {
+      padding: 60px 0 48px;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: "Fira Code", monospace;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--neon-green);
+      border: 1px solid rgba(57, 255, 20, 0.3);
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+      animation: pulse-border 3s ease-in-out infinite;
+    }
+    @keyframes pulse-border {
+      0%, 100% { border-color: rgba(57, 255, 20, 0.3); }
+      50% { border-color: rgba(57, 255, 20, 0.6); }
+    }
+
+    .hero-title {
+      font-size: clamp(2em, 6vw, 3.2em);
+      margin-bottom: 0;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.15));
+    }
+
+    /* Glitch 效果 */
+    .glitch {
+      position: relative;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--neon-pink);
+      clip-path: inset(0 0 0 0);
+      animation: glitch-1 4s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      left: -2px;
+      text-shadow: 2px 0 var(--neon-cyan);
+      clip-path: inset(0 0 0 0);
+      animation: glitch-2 4s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-1 {
+      0%, 93% { clip-path: inset(0 0 0 0); opacity: 0; }
+      94% { clip-path: inset(20% 0 60% 0); opacity: 1; }
+      95% { clip-path: inset(50% 0 20% 0); opacity: 1; }
+      96% { clip-path: inset(0 0 0 0); opacity: 0; }
+      100% { clip-path: inset(0 0 0 0); opacity: 0; }
+    }
+    @keyframes glitch-2 {
+      0%, 95% { clip-path: inset(0 0 0 0); opacity: 0; }
+      96% { clip-path: inset(40% 0 30% 0); opacity: 1; }
+      97% { clip-path: inset(10% 0 70% 0); opacity: 1; }
+      98% { clip-path: inset(0 0 0 0); opacity: 0; }
+      100% { clip-path: inset(0 0 0 0); opacity: 0; }
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+      font-family: "Fira Code", monospace;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .stat-num {
+      color: var(--neon-cyan);
+      font-weight: 700;
+    }
+    .stat-divider {
+      color: rgba(0, 240, 255, 0.2);
+    }
+    .stat-online {
+      color: var(--neon-green);
+      text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+    }
+
+    /* 文章列表 */
+    .posts-section {
+      margin-top: 8px;
+    }
+    .section-title {
+      font-family: "Noto Sans SC", sans-serif;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    }
+
+    .post-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px;
+      margin-bottom: 16px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      text-decoration: none !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+      opacity: 0.4;
+    }
+    .post-card:hover {
+      border-color: rgba(168, 85, 247, 0.4);
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
+      transform: translateY(-2px);
+      text-shadow: none;
+    }
+    .post-card:hover .post-arrow {
+      color: var(--neon-pink);
+      transform: translateX(4px);
+    }
+    .post-card:hover .post-index {
+      color: var(--neon-pink);
+      text-shadow: 0 0 15px rgba(255, 45, 149, 0.5);
+    }
+
+    .post-index {
+      font-family: "Orbitron", monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(0, 240, 255, 0.15);
+      line-height: 1;
+      min-width: 48px;
+      transition: all 0.3s ease;
+    }
+
+    .post-content {
+      flex: 1;
+    }
+    .post-title {
+      font-size: 1.05em;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .post-date {
+      font-family: "Fira Code", monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .post-tags {
+      display: flex;
+      gap: 6px;
+    }
+    .tag {
+      font-family: "Fira Code", monospace;
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      color: var(--neon-purple);
+      letter-spacing: 0.5px;
+    }
+    .post-summary {
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+    .post-arrow {
+      font-size: 20px;
+      color: rgba(0, 240, 255, 0.2);
+      align-self: center;
+      transition: all 0.3s ease;
+      font-family: monospace;
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 40px 0 32px; }
+      .post-index { display: none; }
+      .post-card { padding: 18px; }
+    }
+  </style>
 </BaseLayout>

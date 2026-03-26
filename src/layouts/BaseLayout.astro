@@ -9,87 +9,313 @@ const withBase = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     <style>
       :root {
-        color-scheme: light;
-        --bg: #faf8f3;
-        --card: #ffffff;
-        --text: #222;
-        --muted: #666;
-        --line: #e8e2d8;
-        --accent: #b85c38;
+        color-scheme: dark;
+        --bg: #0a0015;
+        --bg-secondary: #0f0a1a;
+        --card: rgba(15, 10, 30, 0.6);
+        --card-border: rgba(0, 240, 255, 0.15);
+        --card-hover: rgba(0, 240, 255, 0.08);
+        --text: #e0dfe6;
+        --text-dim: #8888aa;
+        --muted: #6a6a8e;
+        --neon-cyan: #00f0ff;
+        --neon-pink: #ff2d95;
+        --neon-purple: #a855f7;
+        --neon-green: #39ff14;
+        --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
+        --glow-pink: 0 0 20px rgba(255, 45, 149, 0.3);
       }
-      * { box-sizing: border-box; }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
       body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
         background: var(--bg);
         color: var(--text);
-        line-height: 1.75;
+        line-height: 1.8;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
       }
-      a { color: var(--accent); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
-      header { margin-bottom: 36px; }
+
+      /* 赛博网格背景 */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* 顶部渐变光晕 */
+      body::after {
+        content: '';
+        position: fixed;
+        top: -200px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 500px;
+        background: radial-gradient(ellipse, rgba(168, 85, 247, 0.12) 0%, rgba(0, 240, 255, 0.06) 40%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* 扫描线效果 */
+      .scanlines {
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 999;
+      }
+
+      a {
+        color: var(--neon-cyan);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      a:hover {
+        color: var(--neon-pink);
+        text-shadow: 0 0 8px rgba(255, 45, 149, 0.5);
+      }
+
+      .wrap {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 24px 80px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* 导航 */
       nav {
         display: flex;
-        gap: 14px;
-        margin-bottom: 24px;
+        align-items: center;
+        gap: 8px;
+        padding: 20px 0;
+        margin-bottom: 16px;
+        border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        font-family: "Fira Code", monospace;
         font-size: 14px;
       }
-      h1, h2, h3 { line-height: 1.25; }
-      .tagline { color: var(--muted); margin-top: 8px; }
+      nav::before {
+        content: '>';
+        color: var(--neon-green);
+        font-weight: bold;
+        animation: blink 1.2s step-end infinite;
+      }
+      nav a {
+        color: var(--text-dim);
+        padding: 4px 12px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+      }
+      nav a:hover {
+        color: var(--neon-cyan);
+        border-color: var(--neon-cyan);
+        background: rgba(0, 240, 255, 0.06);
+        text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+      }
+
+      @keyframes blink {
+        50% { opacity: 0; }
+      }
+
+      h1, h2, h3 { line-height: 1.3; }
+
+      h1 {
+        font-family: "Orbitron", "Noto Sans SC", sans-serif;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      h2 {
+        font-family: "Noto Sans SC", sans-serif;
+        font-weight: 700;
+        color: var(--neon-cyan);
+        margin-bottom: 16px;
+        font-size: 1.2em;
+        text-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+      }
+      h3 { font-weight: 500; }
+
+      .tagline {
+        color: var(--muted);
+        margin-top: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+      .tagline::before {
+        content: '// ';
+        color: var(--neon-green);
+      }
+
+      /* 玻璃拟态卡片 */
       .card {
         background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 22px;
-        margin-bottom: 18px;
-      }
-      .hero-banner {
-        width: 100%;
-        max-width: 100%;
-        height: 180px;
-        overflow: hidden;
-        border-radius: 16px;
-        border: 1px solid var(--line);
-        margin: 14px 0 18px;
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 28px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.4s ease;
         position: relative;
-        background: #f3eee7;
+        overflow: hidden;
       }
-      .hero-banner img {
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
-        max-height: 100%;
-        object-fit: cover;
-        object-position: center;
-        display: block;
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+        opacity: 0.5;
       }
-      @media (max-width: 720px) {
-        .hero-banner {
-          height: 132px;
-          border-radius: 14px;
-        }
+      .card:hover {
+        border-color: rgba(0, 240, 255, 0.3);
+        box-shadow: var(--glow-cyan);
+        background: var(--card-hover);
       }
-      .meta { color: var(--muted); font-size: 14px; }
-      footer { margin-top: 40px; color: var(--muted); font-size: 14px; }
+
+      .card p {
+        margin-bottom: 12px;
+        color: var(--text-dim);
+      }
+      .card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .card ul {
+        padding-left: 0;
+        list-style: none;
+      }
+      .card ul li {
+        position: relative;
+        padding-left: 24px;
+        margin-bottom: 10px;
+        color: var(--text-dim);
+      }
+      .card ul li::before {
+        content: '▹';
+        position: absolute;
+        left: 0;
+        color: var(--neon-pink);
+        font-size: 14px;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        font-family: "Fira Code", monospace;
+        letter-spacing: 0.5px;
+      }
+
+      /* 代码样式 */
       code {
-        background: #f3eee7;
-        padding: 2px 6px;
-        border-radius: 6px;
-        font-size: 0.92em;
+        background: rgba(0, 240, 255, 0.08);
+        color: var(--neon-green);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.88em;
+        border: 1px solid rgba(0, 240, 255, 0.1);
+      }
+      pre {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(0, 240, 255, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        overflow-x: auto;
+        margin: 16px 0;
+      }
+      pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--text);
+        font-size: 0.85em;
+        line-height: 1.7;
+      }
+
+      strong {
+        color: var(--neon-pink);
+        font-weight: 600;
+      }
+
+      /* 页脚 */
+      footer {
+        margin-top: 60px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(0, 240, 255, 0.08);
+        color: var(--muted);
+        font-size: 13px;
+        font-family: "Fira Code", monospace;
+        text-align: center;
+        letter-spacing: 1px;
+      }
+      footer::before {
+        content: '// ';
+        color: rgba(0, 240, 255, 0.3);
+      }
+
+      /* 响应式 */
+      @media (max-width: 640px) {
+        .wrap { padding: 0 16px 60px; }
+        .card { padding: 20px; }
+        h1 { font-size: 1.5em; }
+      }
+
+      /* 选中文字颜色 */
+      ::selection {
+        background: rgba(168, 85, 247, 0.3);
+        color: #fff;
+      }
+
+      /* 滚动条 */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 240, 255, 0.2);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 240, 255, 0.4);
       }
     </style>
   </head>
   <body>
+    <div class="scanlines"></div>
     <main class="wrap">
       <nav>
-        <a href={withBase('/')}>首页</a>
-        <a href={withBase('/about/')}>关于</a>
+        <a href={withBase('/')}>cd ~</a>
+        <a href={withBase('/about/')}>./about</a>
       </nav>
       <slot />
-      <footer>狗子修虾手记 · Astro 本地草稿站</footer>
+      <footer>狗子修虾手记 · Astro · SYSTEM ONLINE</footer>
     </main>
   </body>
 </html>
