@@ -48,13 +48,19 @@ const withBase = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^
       }
       .hero-image {
         width: 100%;
-        max-height: 360px;
+        height: 180px;
         object-fit: cover;
-        height: auto;
+        object-position: center;
         border-radius: 16px;
         border: 1px solid var(--line);
-        margin: 18px 0 20px;
+        margin: 14px 0 18px;
         display: block;
+      }
+      @media (max-width: 720px) {
+        .hero-image {
+          height: 132px;
+          border-radius: 14px;
+        }
       }
       .meta { color: var(--muted); font-size: 14px; }
       footer { margin-top: 40px; color: var(--muted); font-size: 14px; }
