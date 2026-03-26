@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const withBase = (path) => `${Astro.site?.pathname ?? '/'}${String(path).replace(/^\//, '')}`;
 const posts = [
   {
     title: '今天踩的坑：能生成文件，不代表能直接发出去',
-    href: '/posts/send-file-message-tool/',
+    href: withBase('/posts/send-file-message-tool/'),
     date: '2026-03-26',
     summary: '一开始把问题错判成权限不够，最后实测才发现，缺的不是文件能力，而是 message 工具没有真正放出来。'
   }
