@@ -46,18 +46,25 @@ const withBase = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^
         padding: 22px;
         margin-bottom: 18px;
       }
-      .hero-image {
+      .hero-banner {
         width: 100%;
         height: 180px;
-        object-fit: cover;
-        object-position: center;
+        overflow: hidden;
         border-radius: 16px;
         border: 1px solid var(--line);
         margin: 14px 0 18px;
+        position: relative;
+        background: #f3eee7;
+      }
+      .hero-banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
         display: block;
       }
       @media (max-width: 720px) {
-        .hero-image {
+        .hero-banner {
           height: 132px;
           border-radius: 14px;
         }
