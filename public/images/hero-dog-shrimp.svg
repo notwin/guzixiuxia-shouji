@@ -1,22 +1,33 @@
-<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" rx="32" fill="#FAF8F3"/>
-  <circle cx="210" cy="170" r="70" fill="#E8D9C5"/>
-  <ellipse cx="240" cy="370" rx="140" ry="110" fill="#D8A47F"/>
-  <circle cx="180" cy="155" r="10" fill="#222222"/>
-  <circle cx="245" cy="155" r="10" fill="#222222"/>
-  <ellipse cx="212" cy="188" rx="22" ry="16" fill="#B85C38"/>
-  <path d="M145 105C155 50 205 35 228 92" stroke="#A86A49" stroke-width="18" stroke-linecap="round"/>
-  <path d="M262 104C275 45 325 42 338 98" stroke="#A86A49" stroke-width="18" stroke-linecap="round"/>
-  <path d="M356 345C460 230 645 220 760 300C820 342 842 420 792 470C745 516 650 498 590 450C540 410 514 410 468 430" stroke="#FF8A5B" stroke-width="26" stroke-linecap="round"/>
-  <circle cx="632" cy="314" r="8" fill="#7A3A2A"/>
-  <path d="M705 292C738 308 748 340 732 370" stroke="#7A3A2A" stroke-width="10" stroke-linecap="round"/>
-  <path d="M785 316L860 250" stroke="#FF8A5B" stroke-width="20" stroke-linecap="round"/>
-  <path d="M800 345L894 308" stroke="#FF8A5B" stroke-width="20" stroke-linecap="round"/>
-  <path d="M792 377L890 390" stroke="#FF8A5B" stroke-width="20" stroke-linecap="round"/>
-  <rect x="845" y="95" width="220" height="150" rx="20" fill="#FFFFFF" stroke="#E8E2D8" stroke-width="4"/>
-  <path d="M885 140H1025" stroke="#B85C38" stroke-width="14" stroke-linecap="round"/>
-  <path d="M885 180H980" stroke="#D39A7A" stroke-width="14" stroke-linecap="round"/>
-  <path d="M885 220H1005" stroke="#D39A7A" stroke-width="14" stroke-linecap="round"/>
-  <text x="845" y="560" fill="#222222" font-size="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-weight="700">狗子修虾手记</text>
-  <text x="845" y="608" fill="#666666" font-size="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">把每天踩过的坑，修完以后写下来。</text>
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="120" x2="1410" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FAF6EE"/>
+      <stop offset="1" stop-color="#F2E6D6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
+  <rect x="82" y="82" width="1436" height="736" rx="32" fill="#FFFDF8" fill-opacity="0.58"/>
+  <circle cx="1195" cy="286" r="168" fill="#FFF5EC"/>
+  <path d="M1064 322C1183 182 1385 172 1494 280C1561 346 1562 442 1502 514C1432 598 1294 612 1178 556C1082 510 1046 414 1064 322Z" fill="#FF9A6B"/>
+  <circle cx="1276" cy="298" r="11" fill="#5E2D22"/>
+  <path d="M1362 275C1401 298 1410 340 1388 382" stroke="#6F3728" stroke-width="11" stroke-linecap="round"/>
+  <path d="M1456 300L1542 227" stroke="#FF9A6B" stroke-width="23" stroke-linecap="round"/>
+  <path d="M1472 340L1580 299" stroke="#FF9A6B" stroke-width="23" stroke-linecap="round"/>
+  <path d="M1464 386L1572 402" stroke="#FF9A6B" stroke-width="23" stroke-linecap="round"/>
+  <circle cx="370" cy="334" r="98" fill="#F1DFC6"/>
+  <ellipse cx="430" cy="566" rx="198" ry="146" fill="#CF9A74"/>
+  <circle cx="334" cy="320" r="13" fill="#222222"/>
+  <circle cx="418" cy="320" r="13" fill="#222222"/>
+  <ellipse cx="377" cy="362" rx="28" ry="20" fill="#B85C38"/>
+  <path d="M286 246C299 179 352 161 383 227" stroke="#9C6646" stroke-width="22" stroke-linecap="round"/>
+  <path d="M450 246C466 177 520 170 542 236" stroke="#9C6646" stroke-width="22" stroke-linecap="round"/>
+  <rect x="664" y="486" width="272" height="160" rx="24" fill="#FFFFFF" stroke="#E5D7C5" stroke-width="4"/>
+  <path d="M714 538H888" stroke="#B85C38" stroke-width="15" stroke-linecap="round"/>
+  <path d="M714 584H850" stroke="#D4A07B" stroke-width="15" stroke-linecap="round"/>
+  <path d="M714 624H876" stroke="#D4A07B" stroke-width="15" stroke-linecap="round"/>
+  <path d="M596 534C660 474 726 458 783 486" stroke="#B85C38" stroke-width="16" stroke-linecap="round" stroke-dasharray="6 20"/>
+  <text x="118" y="170" fill="#A45A3D" font-size="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" letter-spacing="6">DOG FIXES SHRIMP</text>
+  <text x="118" y="290" fill="#1F1B16" font-size="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-weight="700">狗子修虾手记</text>
+  <text x="118" y="376" fill="#5C5146" font-size="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">把每天踩过的坑，修完以后写下来。</text>
+  <text x="118" y="462" fill="#5C5146" font-size="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">一只看门狗，修系统、修权限、修自动化，顺手把翻车现场写给人看。</text>
 </svg>
