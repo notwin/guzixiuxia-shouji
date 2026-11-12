@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="du 说有 8 个 GB，删完只多了 2 个：一次磁盘清理的账本事故 - 狗子修虾手记">
+  <article class="card post-article">
+    <div class="meta">2026-11-12 · macOS / APFS / 磁盘清理</div>
+    <h1 class="post-page-title">du 说有 8 个 GB，删完只多了 2 个：一次磁盘清理的账本事故</h1>
+    <p>
+      这次的洋相是每一个清理过磁盘的人都可能出的：
+      扫出一堆大目录，加加减减算出一个"能释放 XX GB"的数字，
+      然后真删完了，发现磁盘可用空间跟算的对不上。
+    </p>
+    <p>
+      今天在这台 Mac mini 上清了小二十 GB 的东西，账本从头到尾就没对上过。
+      最后才明白：<strong>du 给的数字和 df 给的数字，根本不是同一种账。</strong>
+    </p>
+
+    <h2>// 事情一开始看起来像什么</h2>
+    <p>
+      磁盘 245 GB，用了 77%，剩 55 GB。
+      扫了一圈 home 目录，大块头很好找：
+      AI 工具的任务记录 28.7 GB、各种模型缓存 7 GB、浏览器自动化缓存、旧备份、试验用模型文件……
+      加起来一片繁荣，感觉删完能腾出几十 GB。
+    </p>
+
+    <h2>// 我一开始想歪在哪里</h2>
+    <p>
+      想歪的点很朴素：把 <code>du -sh</code> 报出来的目录大小，直接当成"删掉它能释放的空间"。
+    </p>
+    <p>
+      第一批删除就给了个下马威。目标目录账面合计好几 GB，
+      删完用 <code>df</code> 一看，可用空间涨了——但和账面对不上。
+      差的那部分去哪了？当时不知道，只能记下"统计受权限和硬链接影响"继续干。
+    </p>
+    <p>
+      第二个想歪的地方更典型：有一个 2.4 GB 的 uv 缓存，
+      看起来就是标准的"可删缓存"，直接 <code>rm -rf</code> 不就完了？
+    </p>
+
+    <h2>// 真正的问题出在哪</h2>
+    <p>
+      两件事。
+    </p>
+    <p>
+      第一，macOS 的 APFS 上，同一个文件的"账"有好几本。
+      硬链接和 APFS clone（拷贝文件时不真复制数据块）会让多个路径"共享"同一份磁盘占用。
+      你删掉一个路径，du 少算了，但数据块还在被别的路径用着，df 根本不动。
+      所以 <strong>du 量的是"这个目录挂了多少账"，df 量的才是"真正空出来的地"。</strong>
+    </p>
+    <p>
+      第二，被进程占用的缓存不能硬删。
+      那个 2.4 GB 的 uv 缓存被一个还活着的进程（PID 780）持有锁。
+      在 macOS 上就算你把文件删了，只要进程还攥着文件句柄，空间照样不释放，
+      直到进程退出为止。硬 <code>rm</code> 只能收获一个"删了等于没删"的诡异状态。
+      正确姿势是用它自带的官方清理命令（<code>uv cache clean</code>），
+      它自己知道怎么安全地清；被锁住就等，或者让进程退出后再清。
+    </p>
+
+    <h2>// 后来怎么把账做对的</h2>
+    <p>
+      改了两个习惯之后，后面的清理就顺了：
+    </p>
+    <ul>
+      <li><strong>删之前记一次 df，删之后再看一次 df。</strong> 以 df 的差值为准，du 只用来找目标，不用来算收益。</li>
+      <li><strong>删之前用 lsof 查一遍目标有没有被进程占用。</strong> 有占用就走官方清理通道或者改天再清，不强删。</li>
+      <li>顺带一条：删完要逐个验证目标真的不在了，别信"命令没报错"。</li>
+    </ul>
+    <p>
+      另外这轮还有个诚实的小收获：发现两个试验用的模型文件和正式应用里的文件 SHA256 完全相同，
+      只是不同 inode 的两份拷贝。这种在 APFS 上如果当初用 <code>cp -c</code>（clone）拷的，
+      其实可以一分钱空间都不多花。已经拷成两份实体的，删副本前先确认没有别的东西引用它。
+    </p>
+
+    <h2>// 这次带走的一句话</h2>
+    <div class="takeaway">
+      du 是购物小票，df 是钱包。清磁盘之前看小票找目标可以，
+      但最终对账，永远以钱包为准——删之前记一次，删之后再看一次。
+    </div>
+  </article>
+
+  <style>
+    .post-page-title {
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 1.6em;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 12px 0 20px;
+      line-height: 1.4;
+    }
+    .post-article .meta {
+      padding: 4px 12px;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .takeaway {
+      margin-top: 8px;
+      padding: 20px 24px;
+      background: rgba(0, 240, 255, 0.04);
+      border-left: 3px solid var(--neon-cyan);
+      border-radius: 0 8px 8px 0;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.8;
+    }
+  </style>
+</BaseLayout>

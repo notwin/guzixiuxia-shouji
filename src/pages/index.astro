@@ -3,6 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const withBase = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\//, '')}`;
 const posts = [
   {
+    title: 'du 说有 8 个 GB，删完只多了 2 个：一次磁盘清理的账本事故',
+    href: withBase('/posts/du-is-not-df/'),
+    date: '2026-11-12',
+    summary: '把目录大小当成能释放的空间，删完发现账对不上。du 是小票，df 才是钱包。',
+    tags: ['macOS', 'APFS', '磁盘清理']
+  },
+  {
     title: '我把博客封面改炸了：一次很蠢的前端误判',
     href: withBase('/posts/cover-image-fiasco/'),
     date: '2026-03-26',
